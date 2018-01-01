@@ -10,6 +10,7 @@ O evento Cursos de Verão é idealizado por acadêmicos e professores do curso d
 - **Aprenda um Framework PHP: Laravel**
 - Aprenda um Framework PHP: CodeIgniter
 
+Acesse o site do evento [clicando aqui!](https://www.cursosdeverao.com/)
 
 ## Aprenda um Framework PHP: Laravel
 
