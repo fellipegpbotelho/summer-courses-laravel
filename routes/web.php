@@ -20,5 +20,5 @@ Route::prefix('admin')->group(function() {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => 'auth:admin'], function(){
     Route::resource('users', 'UsersController', ['only' => ['index']]);
     Route::resource('orders', 'OrdersController', ['only' => ['index']]);
-    Route::resource('products', 'ProductsController', ['only' => ['index']]);
+    Route::resource('products', 'ProductsController', ['only' => ['index', 'create', 'store']]);
 });

@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
-class ProductsController extends Controller
-{
+class ProductsController extends Controller{
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+
+        $products = Product::all();
+
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -22,9 +26,8 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+        return view('admin.products.create');
     }
 
     /**
@@ -33,9 +36,38 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'amount' => 'required',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = $this->uploadImage($request);
+
+        $product = Product::create([
+            'name' => $request->name,
+            'amount' => $request->amount,
+            'description' => $request->description,
+            'image' => $imageName,
+        ]);
+
+        return redirect()->route('admin.products.index');
+    }
+
+    private function uploadImage(Request $request){
+
+        $image = $request->file('image');
+        $input['imageName'] = time().'.'.$image->getClientOriginalExtension();
+
+        $img = Image::make($image->getRealPath());
+
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $input['imageName']);
+
+        return $input['imageName'];
     }
 
     /**

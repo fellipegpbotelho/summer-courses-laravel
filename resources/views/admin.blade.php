@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in Admin!
+                        <a href="{{ route('admin.users.index') }}">Clientes</a>
+                        <a href="{{ route('admin.products.index') }}">Produtos</a>
                 </div>
             </div>
         </div>
