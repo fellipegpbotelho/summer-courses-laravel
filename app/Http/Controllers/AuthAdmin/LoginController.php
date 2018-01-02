@@ -77,6 +77,6 @@ class LoginController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        return redirect()->route('login');
+        return redirect()->route('admin.login');
     }
 }
