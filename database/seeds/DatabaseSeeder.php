@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder{
             'name' => 'User',
             'email' => 'user@mail.com',
             'password' => bcrypt('secret'),
+            'cpf' => '11122233344',
+            'phone_number' => '(38) 999999999',
         ]);
 
         \App\Models\Admin::create([

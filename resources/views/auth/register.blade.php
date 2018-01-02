@@ -61,6 +61,34 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('cpf') ? ' has-error' : '' }}">
+                            <label for="cpf" class="col-md-4 control-label">CPF:</label>
+
+                            <div class="col-md-6">
+                                <input id="cpf" type="text" class="form-control" name="cpf" value="{{ old('cpf') }}" required autofocus maxlength="11">
+
+                                @if ($errors->has('cpf'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('cpf') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
+                            <label for="phone_number" class="col-md-4 control-label">Phone number:</label>
+
+                            <div class="col-md-6">
+                                <input id="phone_number" type="text" class="form-control" name="phone_number" value="{{ old('phone_number') }}" required autofocus maxlength="15">
+
+                                @if ($errors->has('phone_number'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('phone_number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
