@@ -3,27 +3,28 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard - Admin</div>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+            <div class="col-md-12">
+                <h1>Pedidos</h1>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Cliente</th>
+                        <th>Produto</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($orders as $order)
+                    <tr>
+                        <td>{{ $order->order_id }}</td>
+                        <td>{{ $order->user_name }}</td>
+                        <td>{{ $order->product_name }}</td>
+                        <td>{{ $order->order_user_status }}</td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

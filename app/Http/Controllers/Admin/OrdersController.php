@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\OrderUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class OrdersController extends Controller{
 
@@ -15,7 +16,16 @@ class OrdersController extends Controller{
      */
     public function index(){
 
-        $orders = OrderUser::all();
+        $orders = DB::table('order_user')
+                    ->join('users', 'users.id', '=', 'order_user.user_id')
+                    ->join('products', 'products.id', '=', 'order_user.product_id')
+                    ->select(
+                        'order_user.id as order_id',
+                        'users.name as user_name',
+                        'products.name as product_name',
+                        DB::raw("(CASE order_user.status WHEN 1 THEN 'Pago' WHEN 0 THEN 'Pendente' END) AS order_user_status")
+                    )
+                    ->get();
 
         return view('admin.orders.index', compact('orders'));
     }
