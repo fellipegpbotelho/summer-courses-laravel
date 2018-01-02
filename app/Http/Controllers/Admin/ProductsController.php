@@ -38,23 +38,29 @@ class ProductsController extends Controller{
      */
     public function store(Request $request){
 
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'amount' => 'required',
-            'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        try{
 
-        $imageName = $this->uploadImage($request);
+            $validator = $this->validate($request, [
+                'name' => 'required|max:255',
+                'amount' => 'required',
+                'description' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-        $product = Product::create([
-            'name' => $request->name,
-            'amount' => $request->amount,
-            'description' => $request->description,
-            'image' => $imageName,
-        ]);
+            $imageName = $this->uploadImage($request);
 
-        return redirect()->route('admin.products.index');
+            $product = Product::create([
+                'name' => $request->name,
+                'amount' => $request->amount,
+                'description' => $request->description,
+                'image' => $imageName,
+            ]);
+
+            return redirect()->route('admin.products.index')->with('success', 'Produto cadastrado com sucesso!')->withErrors($validator)->withInput();
+
+        }catch(Exeption $e){
+            return redirect()->route('admin.products.index')->with('danger', 'Ocorreu um erro, tente novamente!');
+        }
     }
 
     private function uploadImage(Request $request){

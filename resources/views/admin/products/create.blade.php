@@ -58,7 +58,8 @@
                     </div>
                 </div>
                 <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-success btn-lg">Salvar</button>
+                    <button type="submit" class="btn btn-success btn-md">Salvar</button>
+                    <a href="{{ route('admin.products.index') }}" class="btn btn-primary btn-md">Voltar</a>
                 </div>
                 {!! Form::close() !!}
             </div>
