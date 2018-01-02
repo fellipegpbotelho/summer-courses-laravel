@@ -34,12 +34,13 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Clientes</a></li>
-                        <li><a href="{{ route('admin.products.index') }}"><i class="fa-product-hunt" aria-hidden="true"></i>&nbsp; Produtos</a></li>
-                        <li><a href="{{ route('admin.orders.index') }}"><i class="fa fa-first-order" aria-hidden="true"></i>&nbsp; Pedidos</a></li>
-                    </ul>
+                    @auth('admin')
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Clientes</a></li>
+                            <li><a href="{{ route('admin.products.index') }}"><i class="fa-product-hunt" aria-hidden="true"></i>&nbsp; Produtos</a></li>
+                            <li><a href="{{ route('admin.orders.index') }}"><i class="fa fa-first-order" aria-hidden="true"></i>&nbsp; Pedidos</a></li>
+                        </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
