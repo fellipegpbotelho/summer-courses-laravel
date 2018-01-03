@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Models\OrderUser;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller{
 
@@ -17,20 +20,19 @@ class OrdersController extends Controller{
     public function index(){
 
         $orders = DB::table('order_user')
-                    ->join('users', 'users.id', '=', 'order_user.user_id')
-                    ->join('products', 'products.id', '=', 'order_user.product_id')
-                    ->select(
-                        'order_user.id as order_id',
-                        'users.name as user_name',
-                        'products.name as product_name',
-                        'products.image as product_image',
-                        'order_user.quantity as product_quantity',
-                        'order_user.value as product_value',
-                        DB::raw("(CASE order_user.status WHEN 1 THEN 'Pago' WHEN 0 THEN 'Pendente' END) AS order_user_status")
-                    )
-                    ->get();
+            ->join('users', 'users.id', '=', 'order_user.user_id')
+            ->join('products', 'products.id', '=', 'order_user.product_id')
+            ->select(
+                'order_user.id as order_id',
+                'users.name as user_name',
+                'products.name as product_name',
+                'products.image as product_image',
+                DB::raw("(CASE order_user.status WHEN 1 THEN 'Pago' WHEN 0 THEN 'Pendente' END) AS order_user_status")
+            )
+            ->where('order_user.user_id', '=', Auth::guard('web')->user()->id)
+            ->get();
 
-        return view('admin.orders.index', compact('orders'));
+        return view('user.orders.index', compact('orders'));
     }
 
     /**
@@ -49,9 +51,22 @@ class OrdersController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+
+        try{
+            $product = Product::find($request->get('product_id'));
+            $user_id = Auth::user()->id;
+            $user = User::find($user_id);
+            $user->products()->attach($request->get('product_id'), [
+                'status' => 0,
+                'quantity' => $request->get('quantity'),
+                'value' => $product->amount,
+            ]);
+
+            return redirect()->route('user.orders.index')->with('success', 'Compra realizada com sucesso!');
+        }catch(\Exception $e){
+            return redirect()->route('user.products.show', $request->product_id)->with('danger', 'Ocorreu um erro, tente novamente!');
+        }
     }
 
     /**

@@ -65,7 +65,27 @@
                 </div>
             </div>
         </nav>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success bg-green-jungle bg-font-green-jungle border-green-jungle alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true"></button>
+                            <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>
+                                SUCESSO! </strong> {{ $message }}
+                        </div>
+                    @elseif ($message = Session::get('danger'))
+                        <div class="alert alert-danger bg-red-mint bg-font-red-mint border-red-mint alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true"></button>
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>
+                                ERRO: </strong> {{ $message }}
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
         @yield('content')
     </div>
 

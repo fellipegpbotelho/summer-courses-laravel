@@ -19,6 +19,8 @@ class CreateOrderUserTable extends Migration{
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
             $table->tinyInteger('status');
+            $table->integer('quantity');
+            $table->float('value');
         });
     }
 

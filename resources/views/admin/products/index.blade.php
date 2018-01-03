@@ -13,6 +13,7 @@
                     <th>Id</th>
                     <th>Nome</th>
                     <th>Descrição</th>
+                    <th>Preço</th>
                     <th>Data de cadastro</th>
                 </tr>
                 </thead>
@@ -23,6 +24,7 @@
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
+                    <td>R$ {{ number_format($product->amount, 2, ',', '.') }}</td>
                     <td>{{ date('d/m/Y \\à\\s H:i:s', strtotime($product->created_at)) }}</td>
                 </tr>
                 @endforeach

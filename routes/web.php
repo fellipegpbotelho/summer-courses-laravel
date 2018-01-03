@@ -22,3 +22,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::resource('orders', 'OrdersController', ['only' => ['index']]);
     Route::resource('products', 'ProductsController', ['only' => ['index', 'create', 'store']]);
 });
+
+Route::group(['prefix' => 'user', 'namespace' => 'User', 'as' => 'user.', 'middleware' => 'auth:web'], function(){
+    Route::resource('orders', 'OrdersController', ['only' => ['index', 'store']]);
+    Route::resource('products', 'ProductsController', ['only' => ['index', 'show']]);
+});
+
+

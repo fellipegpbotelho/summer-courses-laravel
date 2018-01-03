@@ -35,9 +35,12 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+                    @auth('web')
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ route('user.products.index') }}"><i class="fa-product-hunt" aria-hidden="true"></i>&nbsp; Produtos</a></li>
+                            <li><a href="{{ route('user.orders.index') }}"><i class="fa fa-first-order" aria-hidden="true"></i>&nbsp; Pedidos</a></li>
+                        </ul>
+                @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -65,11 +68,32 @@
                 </div>
             </div>
         </nav>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success bg-green-jungle bg-font-green-jungle border-green-jungle alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true"></button>
+                            <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>
+                                SUCESSO! </strong> {{ $message }}
+                        </div>
+                    @elseif ($message = Session::get('danger'))
+                        <div class="alert alert-danger bg-red-mint bg-font-red-mint border-red-mint alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true"></button>
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>
+                                ERRO: </strong> {{ $message }}
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://use.fontawesome.com/9260d106a3.js"></script>
 </body>
 </html>

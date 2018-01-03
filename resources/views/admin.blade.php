@@ -7,11 +7,6 @@
             <h1>Dashboard - Administrador</h1>
 
             <div class="panel-body">
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
                 <div class="row">
                     <div class="col-md-4"><a href="{{ route('admin.users.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Clientes</a></div>
                     <div class="col-md-4"><a href="{{ route('admin.products.index') }}"><i class="fa-product-hunt" aria-hidden="true"></i>&nbsp; Produtos</a></div>
